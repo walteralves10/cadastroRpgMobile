@@ -2,6 +2,7 @@ package walter.com.br.personagensrpg;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class BancoController {
@@ -54,6 +55,32 @@ public class BancoController {
             return "Erro ao inserir registro";
         else
             return "Registro Inserido com sucesso";
+    }
+
+    public Cursor carregaLog(){
+        Cursor cursor;
+        String[] campos =  {banco.SENHA_LOGIN,banco.USER_LOGIN};
+        db = banco.getReadableDatabase();
+        cursor = db.query(banco.TABELA_LOGIN, campos, null, null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
+    }
+
+    public Cursor carregaPers(){
+        Cursor cursor;
+        String[] campos =  {banco.ID,banco.NOME};
+        db = banco.getReadableDatabase();
+        cursor = db.query(banco.TABELA_PERS, campos, null, null, null, null, null, null);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
     }
 
 }

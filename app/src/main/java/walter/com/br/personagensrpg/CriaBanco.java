@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CriaBanco extends SQLiteOpenHelper{
 
-    public static final String NOME_BANCO = "rpg.db";
+    public static final String NOME_BANCO = "pers.db";
+    //public static final String NOME_BANCO_LOG = "log.db";
+
 
     public static final String TABELA_PERS = "personagem";
     public static final String ID = "_id";
@@ -22,6 +24,7 @@ public class CriaBanco extends SQLiteOpenHelper{
    // private static final String CIDADE_ORIGEM = "cidadeOrigemPers";
 
     public static final String TABELA_LOGIN = "login";
+    public static final String ID_LOG = "_id";
     public static final String USER_LOGIN = "userLog";
     public static final String SENHA_LOGIN = "senhaLog";
 
@@ -31,6 +34,7 @@ public class CriaBanco extends SQLiteOpenHelper{
     public CriaBanco(Context context){
         super(context, NOME_BANCO,null,VERSAO);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -46,12 +50,14 @@ public class CriaBanco extends SQLiteOpenHelper{
                 +CLA + " text"
                 +")";
 
+        db.execSQL(sql);
+
         String sqlTableLog = "CREATE TABLE "+TABELA_LOGIN+"("
+                +ID_LOG+ " integer primary key autoincrement,"
                 +USER_LOGIN + " text,"
                 +SENHA_LOGIN + " text"
                 +")";
 
-        db.execSQL(sql);
         db.execSQL(sqlTableLog);
     }
 

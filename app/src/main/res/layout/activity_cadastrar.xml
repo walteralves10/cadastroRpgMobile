@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CadastrarActivity">
+    tools:context=".CadastrarActivity"
+    android:id="@+id/Cadis">
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,6 +63,13 @@
         android:id="@+id/salvar"
         android:text="salvar"/>
 
+    <Button
+        android:id="@+id/buscarLog"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Buscar" />
 
 
 </LinearLayout>

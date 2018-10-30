@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class LoginPersoActivity extends AppCompatActivity {
     private EditText arma;
     private EditText cla;
     private Button salvar;
+    private Button busca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginPersoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Voltar");
 
         salvar = (Button) findViewById(R.id.salvar);
+        busca = (Button) findViewById(R.id.buscar);
 
         salvar.setOnClickListener(new View.OnClickListener() {
 
@@ -62,6 +65,16 @@ public class LoginPersoActivity extends AppCompatActivity {
                 resultado = crud.inserePersonagem(nomeString,idadeString,sexoString,personalidadeString,racaString,classeString,armaString,claString);
 
                 Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
+
+                clear((ViewGroup)findViewById(R.id.Inser));
+            }
+        });
+
+        busca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ConsultaPersActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -77,5 +90,22 @@ public class LoginPersoActivity extends AppCompatActivity {
             default:break;
         }
         return true;
+    }
+
+    public void clear(ViewGroup group) {
+
+        int count = group.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = group.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                clear((ViewGroup) view);
+                continue;
+            }
+            if (view instanceof EditText) {
+                ((EditText)view).setText("");
+                continue;
+            }
+        }
+
     }
 }

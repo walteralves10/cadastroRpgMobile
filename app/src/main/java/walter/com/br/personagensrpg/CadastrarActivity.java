@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ public class CadastrarActivity extends AppCompatActivity {
     private EditText user;
     private EditText pass;
     private Button salvar;
+    private Button buscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class CadastrarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastrar);
 
         salvar = (Button) findViewById(R.id.salvar);
+        buscar = (Button) findViewById(R.id.buscarLog);
 
         salvar.setOnClickListener(new View.OnClickListener() {
 
@@ -42,6 +45,16 @@ public class CadastrarActivity extends AppCompatActivity {
                 resultado = crud.insereLogin(userString,passString);
 
                 Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
+
+                clear((ViewGroup)findViewById(R.id.Cadis));
+            }
+        });
+
+        buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ConsultaLoginActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -64,4 +77,22 @@ public class CadastrarActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void clear(ViewGroup group) {
+
+        int count = group.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = group.getChildAt(i);
+            if (view instanceof ViewGroup) {
+                clear((ViewGroup) view);
+                continue;
+            }
+            if (view instanceof EditText) {
+                ((EditText)view).setText("");
+                continue;
+            }
+        }
+
+    }
+
 }
